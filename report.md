@@ -97,3 +97,55 @@ From this task, I learned:
 This task helped me understand how CI/CD makes the development process faster and easier. By using Jenkins, I was able to automate different steps of the project. It also helped me understand how real-world projects use automation to improve efficiency.
 
 ---
+
+Here’s a **short, clean task report** you can submit 👇
+
+---
+
+## **TASK 9: Hashing**
+
+**Objective:**
+To implement a secure system for storing and verifying user passwords using hashing techniques.
+
+---
+
+**Description:**
+In this task, a simple authentication system was developed using Python and Flask. Instead of storing plain text passwords, the passwords were converted into hashed values using the `hashlib` library. This ensures better security, as hashed passwords cannot be easily reversed.
+
+---
+![sha256](https://cheapsslsecurity.com/p/wp-content/uploads/2025/06/sha256.png)
+
+**Implementation:**
+
+* Used **SHA-256 hashing** to encrypt user passwords.
+* Stored user credentials (username and hashed password) in a **SQLite database**.
+* Created a **registration system** to add new users.
+* Built a **login system** to verify users by comparing hashed passwords.
+* Developed a basic UI using HTML for user interaction.
+
+---
+
+![welcome](https://raw.githubusercontent.com/yasmeen-taj111/images/bf074633ff9c023932060b7418e6a5f4af7d340f/WhatsApp%20Image%202026-04-18%20at%2014.37.44.jpeg)
+![register](https://github.com/yasmeen-taj111/images/blob/main/WhatsApp%20Image%202026-04-18%20at%2014.37.44%20(1).jpeg?raw=true)
+![login](https://raw.githubusercontent.com/yasmeen-taj111/images/f51054c5a4b877d3af6975ae567b352b05ed3824/WhatsApp%20Image%202026-04-18%20at%2014.37.44%20(2).jpeg)
+![success](https://github.com/yasmeen-taj111/images/blob/main/WhatsApp%20Image%202026-04-18%20at%2014.37.44%20(3).jpeg?raw=true)
+
+
+
+
+**Outcome:**
+
+* Successfully implemented secure password storage.
+* Understood the concept of one-way hashing.
+* Learned how authentication systems work in real-world applications.
+
+---
+
+![hash](https://github.com/yasmeen-taj111/images/blob/main/WhatsApp%20Image%202026-04-18%20at%2014.37.44%20(4).jpeg?raw=true)
+
+**Conclusion:**
+This task helped in understanding the importance of password security and how hashing protects user data. It also provided practical experience in backend development and database integration.
+
+---
+
+
