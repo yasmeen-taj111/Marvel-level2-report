@@ -96,6 +96,7 @@ From this task, I learned:
 
 This task helped me understand how CI/CD makes the development process faster and easier. By using Jenkins, I was able to automate different steps of the project. It also helped me understand how real-world projects use automation to improve efficiency.
 
+**Github** [click here](https://github.com/yasmeen-taj111/web-app)
 ---
 
 Here’s a **short, clean task report** you can submit 👇
@@ -145,6 +146,12 @@ In this task, a simple authentication system was developed using Python and Flas
 
 **Conclusion:**
 This task helped in understanding the importance of password security and how hashing protects user data. It also provided practical experience in backend development and database integration.
+
+
+
+**Github** [click here](https://github.com/yasmeen-taj111/Hashing-)
+
+
 
 ---
 
