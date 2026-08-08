@@ -1,4 +1,4 @@
-## **TASK 2: CI/CD (Continuous Integration & Continuous Delivery) – Introduction to Jenkins**
+# **TASK 2: CI/CD (Continuous Integration & Continuous Delivery) – Introduction to Jenkins**
 
 ### **Introduction**
 
@@ -103,7 +103,7 @@ Here’s a **short, clean task report** you can submit 👇
 
 ---
 
-## **TASK 9: Hashing**
+# **TASK 9: Hashing**
 
 **Objective:**
 To implement a secure system for storing and verifying user passwords using hashing techniques.
@@ -155,4 +155,82 @@ This task helped in understanding the importance of password security and how ha
 
 ---
 
+
+# TASK 10: NMap
+
+## What did I learn?
+
+* Nmap (**Network Mapper**) is a network scanning tool used to understand what is available on a network.
+* It can help us find **active hosts, open ports, running services, service versions, and the probable operating system** of a target.
+* I learned that an **open port usually means some service is listening on that port**, while a closed port means there is no service accepting connections there.
+* Nmap works by sending different types of network requests/packets to a target and analyzing the responses.
+* I also learned that scanning `localhost` checks the same machine, while scanning an IP address checks the machine through its network interface.
+* During my testing, the default scan initially showed all 1000 scanned ports as closed. I then started a simple Python HTTP server on port **8000** and scanned it again. Nmap was then able to detect the port as open and identify the service.
+* OS detection is not always 100% accurate. Nmap gives its best estimate based on the responses it receives.
+
+---
+
+## Basic Nmap Commands and Their Use Cases
+
+| **Command**                    | **Description**                                                | **Use Case**                                                                   |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| `nmap <target>`                | Performs a basic scan of the target's commonly used TCP ports. | Used to get a quick idea of the target's open ports.                           |
+| `nmap -sn <network>`           | Performs host discovery without doing a normal port scan.      | Used to find which hosts are active on a network.                              |
+| `nmap -p 8000 <target>`        | Scans a specific port.                                         | Useful when we want to check whether a particular service is accessible.       |
+| `nmap -p 1-1000 <target>`      | Scans ports from 1 to 1000.                                    | Used to check a specific range of commonly used ports.                         |
+| `nmap -p- <target>`            | Scans all TCP ports from 1 to 65535.                           | Used when a more complete port scan is required.                               |
+| `nmap -sV <target>`            | Detects the services and attempts to identify their versions.  | Helps understand what software is running on open ports.                       |
+| `nmap -O <target>`             | Attempts to identify the target's operating system.            | Useful for understanding the type of system being scanned.                     |
+| `nmap -sV -O <target>`         | Performs service/version detection along with OS detection.    | Gives more detailed information about the target.                              |
+| `nmap -Pn <target>`            | Skips host discovery and treats the target as online.          | Useful when normal host discovery is blocked.                                  |
+| `nmap -T4 <target>`            | Increases the scan speed.                                      | Useful when a faster scan is required on an authorized network.                |
+| `nmap -sC <target>`            | Runs Nmap's default NSE scripts.                               | Useful for gathering additional information about services and configurations. |
+| `nmap --traceroute <target>`   | Attempts to show the network path to the target.               | Useful for understanding routing and troubleshooting network connectivity.     |
+| `nmap -oN output.txt <target>` | Saves the scan in normal text format.                          | Useful for keeping scan results for later analysis and reporting.              |
+| `nmap -oX output.xml <target>` | Saves the scan in XML format.                                  | Useful when scan results need to be processed by other tools.                  |
+
+---
+
+## My Nmap Scan Results
+
+During the practical, I first scanned my Kali machine and found that the host was **up**, but the default 1000 TCP ports were closed.
+
+To demonstrate an open port, I started a temporary Python HTTP server on port **8000** and scanned the port using Nmap.
+
+The scan detected:
+
+```text
+8000/tcp   open   http
+```
+
+Using service detection, Nmap identified the service as:
+
+```text
+SimpleHTTPServer 0.6 (Python 3.11.4)
+```
+
+I also performed OS detection. Nmap identified the target as a **Linux-based system**, although OS detection can sometimes be approximate depending on the available network information.
+
+---
+
+![nmap](https://github.com/yasmeen-taj111/images/blob/main/nmap1.jpeg?raw=true)
+![nmap](https://github.com/yasmeen-taj111/images/blob/main/nmap2.jpeg?raw=true)
+![nmap](https://github.com/yasmeen-taj111/images/blob/main/nmap3.jpeg?raw=true)
+
+
+## Analysis
+
+From this task, I understood why open ports are important during network scanning. An open port tells us that a service is listening and accepting connections. By identifying the service and its version, we can understand what is exposed on the system.
+
+I also understood that **having an open port is not automatically a security problem**. The important thing is whether the service is required and properly secured.
+
+The scan also showed that Nmap cannot always identify the operating system with complete accuracy. Its result depends on the responses received from the target.
+
+---
+
+## Conclusion
+
+This task helped me understand the practical use of Nmap for **host discovery, port scanning, service detection and OS detection**. I also learned how the result changes when a service is started on a particular port. Overall, Nmap can give a quick picture of what services are exposed on a system and can be useful for network administration and security auditing.
+
+---
 
