@@ -1,4 +1,4 @@
-# **TASK 2: CI/CD (Continuous Integration & Continuous Delivery) – Introduction to Jenkins**
+# **TASK 1: CI/CD (Continuous Integration & Continuous Delivery) – Introduction to Jenkins**
 
 ### **Introduction**
 
@@ -103,7 +103,7 @@ Here’s a **short, clean task report** you can submit 👇
 
 ---
 
-# **TASK 9: Hashing**
+# **TASK 2: Hashing**
 
 **Objective:**
 To implement a secure system for storing and verifying user passwords using hashing techniques.
@@ -156,7 +156,7 @@ This task helped in understanding the importance of password security and how ha
 ---
 
 
-# TASK 10: NMap
+# TASK 3: NMap
 
 ## What did I learn?
 
@@ -231,6 +231,282 @@ The scan also showed that Nmap cannot always identify the operating system with 
 ## Conclusion
 
 This task helped me understand the practical use of Nmap for **host discovery, port scanning, service detection and OS detection**. I also learned how the result changes when a service is started on a particular port. Overall, Nmap can give a quick picture of what services are exposed on a system and can be useful for network administration and security auditing.
+
+---
+# TASK 4: Docker
+
+## What I Learned
+
+Docker is a platform used to **package, distribute, and run applications in isolated environments called containers**. It helps ensure that an application works consistently across different machines and avoids the common “it works on my machine” problem.
+
+### Docker Analogy
+
+Imagine I have a **Python application** that requires Python, certain libraries, and other dependencies. Instead of installing everything manually on every system, Docker packages the application and its dependencies into a container. This container can then run on another developer's machine, a server, or the cloud with the same setup.
+
+
+![docker](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWwqi7vttCIgGmYl8JUU6eW1O4Wr7XUqQlrlLVwXxqwQ&s=10)
+
+### VM vs Containers
+
+* **VMs** contain a complete operating system and their own kernel, making them heavier.
+* **Containers share the host OS kernel**, making them lightweight and faster to start.
+* Containers generally require **less memory and CPU** compared to VMs.
+
+### Images vs Containers
+
+* **Docker Image** → A read-only blueprint/template used to create containers. It contains the application, dependencies, runtime, and required configuration.
+* **Docker Container** → A running instance of an image. It has a writable layer and runs the application in an isolated environment.
+
+### Dockerfile
+
+A **Dockerfile** is a text file containing instructions to build a Docker image. It makes the application environment reproducible and portable.
+
+### Docker Compose
+
+I also learned about **Docker Compose**, which is used to manage multiple containers using a YAML configuration file. It allows services, networks, and volumes to be defined and managed together.
+
+## Commands I Practiced
+
+```bash
+docker --version
+docker pull hello-world
+docker run hello-world
+docker images
+docker ps
+docker ps -a
+docker build -t my-nginx .
+docker run -d -p 8080:80 --name my-nginx-container my-nginx
+docker stop my-nginx-container
+docker start my-nginx-container
+docker logs my-nginx-container
+docker rm my-nginx-container
+docker rmi my-nginx
+```
+
+I also created a **Dockerfile** containing:
+
+```dockerfile
+FROM nginx:latest
+```
+
+Then I built an image from it and ran it as a container.
+
+### Key Takeaway
+
+The main concept I understood is:
+
+**Dockerfile → Image → Container**
+
+Docker makes applications easier to **package, share, and run consistently** across different environments.
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/docker1.jpeg?raw=true)
+![docker](https://github.com/yasmeen-taj111/images/blob/main/docker2jpeg.jpeg?raw=true)
+![docker](https://github.com/yasmeen-taj111/images/blob/main/docker3.jpeg?raw=true)
+
+---
+
+# TASK 5: Dockerize — Without Using YAML File
+
+## Problem
+
+The task was to containerize the **Level 0 Resource Library web application** without using a YAML/Compose file.
+
+The main focus was to understand **Docker networking and volumes** while running the backend and database in separate containers.
+
+## What I Did
+
+* Created a `Dockerfile` for the Express backend.
+* Pulled the official **PostgreSQL** Docker image.
+* Created a custom bridge network: `resource-library-net`.
+* Created a Docker volume: `resource-library-data`.
+* Ran the backend and PostgreSQL containers manually using `docker run`.
+* Connected both containers to the same network.
+* Used the PostgreSQL container name as the database host instead of `localhost`.
+
+
+
+### Dockerfile
+
+The backend Dockerfile was created to package the Express application along with its required dependencies.
+
+```
+dockerfile
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
+```
+
+#### What each part does:
+
+* `FROM node:alpine` → Uses a lightweight Node.js image as the base.
+* `WORKDIR /app` → Sets `/app` as the working directory inside the container.
+* `COPY package*.json ./` → Copies the package files.
+* `RUN npm install` → Installs the required dependencies.
+* `COPY . .` → Copies the application code into the container.
+* `EXPOSE 3000` → Documents that the application uses port 3000.
+* `CMD ["npm", "start"]` → Starts the Express application.
+
+---
+
+### 1. Web Application Running
+
+The Resource Library application running successfully in the browser.
+
+* **URL:** `http://localhost:3000`
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize1.jpeg?raw=true)
+
+
+### 2. Docker Images
+
+This shows the images available locally, including the backend application image and PostgreSQL image.
+
+```bash
+docker images
+
+```
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize2.jpeg?raw=true)
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize3.jpeg?raw=true)
+
+
+
+### 3. Running Containers
+
+This shows both the backend and database containers running.
+
+```bash
+docker ps
+
+```
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize4.jpeg?raw=true)
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize5.jpeg?raw=true)
+
+
+
+
+### 4. Docker Volume
+
+The PostgreSQL volume can be checked using:
+
+```bash
+docker volume ls
+
+```
+
+or:
+
+```bash
+docker volume inspect resource-library-data
+
+```
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize6.jpeg?raw=true)
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize7.jpeg?raw=true)
+
+
+> This confirms that the database has persistent storage.
+
+### 5. Project Files
+
+The project folder showing the Dockerfile and application files.
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/dockerize8.jpeg?raw=true)
+
+---
+
+### Docker Networking — What I Learned
+
+Docker provides networking so that containers can communicate with each other while remaining isolated from the host system.
+
+Some common Docker network types are:
+
+| Network | Use |
+| --- | --- |
+| **Bridge** | Containers communicate on the same Docker host |
+| **Host** | Container uses the host's network stack |
+| **None** | Container has no network |
+| **Overlay** | Used for communication across multiple Docker hosts |
+
+For this task, I used a custom bridge network:
+
+```bash
+docker network create resource-library-net
+
+```
+
+This allowed my backend and PostgreSQL containers to communicate using the container name.
+
+---
+
+### Docker Volumes — What I Learned
+
+Containers are generally treated as temporary environments. If a container is removed, data stored only inside that container can be lost.
+
+Docker volumes provide persistent storage.
+
+For example:
+
+```bash
+docker volume create mydata
+
+```
+
+and:
+
+```bash
+docker run -d -v mydata:/app/data myapp
+
+```
+
+In my project, the PostgreSQL data was stored using:
+`resource-library-data:/var/lib/postgresql/data`
+
+So the database storage is not dependent on the lifetime of the PostgreSQL container.
+
+---
+
+### Common Docker Commands I Used
+
+| Command | Purpose |
+| --- | --- |
+| `docker --version` | Check Docker installation |
+| `docker pull postgres` | Pull PostgreSQL image |
+| `docker images` | List Docker images |
+| `docker build -t myapp .` | Build an image |
+| `docker ps` | Show running containers |
+| `docker ps -a` | Show all containers |
+| `docker run` | Create and start a container |
+| `docker stop <container>` | Stop a container |
+| `docker rm <container>` | Remove a container |
+| `docker logs <container>` | View container logs |
+| `docker network create <name>` | Create a network |
+| `docker network ls` | List networks |
+| `docker network inspect <name>` | Inspect a network |
+| `docker volume create <name>` | Create a volume |
+| `docker volume ls` | List volumes |
+| `docker volume inspect <name>` | Inspect a volume |
+| `docker exec -it <container> bash` | Access a running container |
+
+---
+
+
+## Outcome
+
+The Resource Library application successfully runs in Docker with the **backend and PostgreSQL in separate containers**, connected through a custom bridge network, with database data stored using a Docker volume.
+
+
+**Github** [click here](https://github.com/yasmeen-taj111/Dockerize_resource_library)
 
 ---
 
