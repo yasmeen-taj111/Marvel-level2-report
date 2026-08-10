@@ -510,3 +510,144 @@ The Resource Library application successfully runs in Docker with the **backend 
 
 ---
 
+# TASK 6: Wireshark
+
+### Problem
+
+Network problems such as **packet loss, latency, retransmissions, and duplicate acknowledgments** can be difficult to identify because they are not always visible to the user.
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/wireshark.png?raw=true)
+
+### How is it solved?
+
+**Wireshark** captures and analyzes network packets. By applying filters and using the Statistics tools, we can identify protocols, monitor traffic, and detect issues such as **TCP retransmissions**.
+
+### What did I do?
+
+* Captured network traffic on the `eth0` interface in Kali Linux.
+* Used filters such as `icmp` and `tcp.analysis.retransmission`.
+* Analyzed ICMP echo request/reply packets generated through ping.
+* Checked the **I/O Graph** to observe network traffic over time.
+* Used the retransmission filter to identify a suspected TCP retransmission.
+
+
+
+**Wireshark I/O Graph showing packet traffic over time along with captured ICMP, DNS, and other network packets.**
+
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/wireshark4.jpeg?raw=true)
+
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/wireshark1.jpeg?raw=true)
+
+
+
+**Wireshark filters showing a suspected TCP retransmission and ICMP echo request/reply packets.**
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/wireshark2.jpeg?raw=true)
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/wireshark3.jpeg?raw=true)
+
+### What did I learn?
+
+* Wireshark can capture and analyze network traffic at the packet level.
+* Display filters make it easier to investigate specific protocols or network issues.
+* `icmp` can be used to analyze ping traffic.
+* `tcp.analysis.retransmission` helps identify possible TCP retransmissions.
+* I/O Graphs help visualize traffic patterns and detect unusual activity.
+* Wireshark can be useful for troubleshooting **packet loss, latency, and network communication problems**.
+
+### Conclusion
+
+Wireshark provides a detailed view of network communication and helps diagnose problems by analyzing individual packets, protocols, and traffic patterns.
+
+---
+
+# TASK 7: Web Scraping and Automation - Flight Ticket Price Analysis
+
+## Problem
+
+Finding and comparing flight prices manually takes time, especially when there are many flights with different timings, airlines, and prices.
+
+## Solution
+
+I developed a **Flight Price Analyzer** that automatically searches Google Flights and extracts important flight information such as:
+
+* Airline
+* Departure and arrival time
+* Duration
+* Number of stops
+* Price
+* Cheapest flight
+
+It can also send the cheapest flight details through email.
+
+## Technologies Used
+
+* **Python** – Main programming language used to build the project.
+* **Selenium** – A Python tool used to control a web browser automatically. Here, it opens Google Flights, enters the search details, and reads the results.
+* **Google Flights** – Website from which flight information is collected.
+* **SMTP** – A standard protocol used to send emails. It connects the program to Gmail.
+* **`.env`** – A file used to store sensitive information such as email credentials without putting them directly in the code.
+* **Web Scraping** – Automatically collecting information from a website using a program.
+
+##  How It Works
+
+```text
+User enters
+Origin + Destination + Date
+          ↓
+     Selenium opens
+      Google Flights
+          ↓
+     Searches flights
+          ↓
+   Extracts flight details
+          ↓
+ Finds the cheapest flight
+          ↓
+    Sends details by email
+```
+
+## What I Learned
+
+* How **Selenium automation** works.
+* How to identify and extract elements from a webpage.
+* How to handle dynamic webpages and changing elements.
+* How to work with **environment variables** using `.env`.
+* How **SMTP and Gmail App Passwords** are used for sending emails.
+* How to structure a Python project into separate files.
+
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/SCRAPING1.jpeg?raw=true)
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/SCRAPING2.jpeg?raw=true)
+
+![docker](https://github.com/yasmeen-taj111/images/blob/main/SCRAPING3.jpeg?raw=true)
+
+
+
+
+##  Resul
+
+The project successfully searches flights and displays results like:
+
+```text
+Airline   : IndiGo
+Departure : BLR at 3:45 AM
+Arrival   : BOM at 5:30 AM
+Duration  : 1 hr 45 min
+Stops     : Nonstop
+Price     : ₹13,352
+
+Cheapest Price: ₹12,977
+```
+![docker](https://github.com/yasmeen-taj111/images/blob/main/SCRAPINGMAIL.jpeg?raw=true)
+
+
+**Github** [click here](https://github.com/yasmeen-taj111/FLIGHT-PRICE-ANALYZER)
+
+---
+
+
+
