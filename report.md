@@ -99,9 +99,7 @@ This task helped me understand how CI/CD makes the development process faster an
 **Github** [click here](https://github.com/yasmeen-taj111/web-app)
 ---
 
-Here’s a **short, clean task report** you can submit 👇
 
----
 
 # **TASK 2: Hashing**
 
