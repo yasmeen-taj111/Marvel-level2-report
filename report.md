@@ -626,7 +626,7 @@ Origin + Destination + Date
 
 
 
-##  Resul
+##  Result
 
 The project successfully searches flights and displays results like:
 
@@ -647,5 +647,45 @@ Cheapest Price: ₹12,977
 
 ---
 
+# Task 8: SSH 
 
+### Objective 
+The aim of this task was to practise working with SSH keys and securely transferring test files between two Linux servers. I used two AWS EC2 Ubuntu instances, created a test SSH key pair, archived the test files, encrypted the archive, and transferred it to the second server. 
 
+### Work carried out 
+1. **Created test SSH keys:** On Server A, I generated an Ed25519 key pair for the lab and prepared a test authorized_keys file. 
+
+2. **Set up SSH access:** I configured SSH authentication from Server A to Server B using a separate transfer key. 
+
+3. **Archived and encrypted the files:** I used a Bash script to create a compressed archive of the lab directory and encrypted it with AES-256-CBC using PBKDF2. 
+
+4. **Transferred and restored the archive:** The script copied the encrypted archive to Server B using SCP. I then decrypted and extracted it on Server B. 
+
+5. **Verified file integrity:** I calculated SHA-256 checksums for the test private and public key files on both servers. The values matched, confirming that the transferred test files were unchanged. 
+
+### Screenshots 
+
+#### 1. Test SSH key generation on Server A 
+The terminal shows generation of the lab Ed25519 key pair. Only test keys were used. 
+![ssh](https://github.com/yasmeen-taj111/images/blob/main/ssh1.jpeg?raw=true) 
+
+#### 2. SSH connection to Server B 
+This shows the successful SSH login from Server A to Server B using the transfer key. 
+![ssh](https://github.com/yasmeen-taj111/images/blob/main/ssh2.jpeg?raw=true) 
+
+#### 3. Bash script execution and transfer 
+The script created the archive, encrypted it, and transferred the encrypted file successfully. 
+![ssh](https://github.com/yasmeen-taj111/images/blob/main/ssh3.jpeg?raw=true) 
+
+#### 4. Decryption and extracted files on Server B 
+The encrypted archive was decrypted and extracted. The test key files and test_user directory are visible. 
+![ssh](https://github.com/yasmeen-taj111/images/blob/main/ssh4.jpeg?raw=true) 
+
+#### 5. SHA-256 integrity verification 
+The SHA-256 values for lab_key and lab_key.pub matched on both servers. 
+![ssh](https://github.com/yasmeen-taj111/images/blob/main/ssh5.jpeg?raw=true) 
+
+### Result 
+The test files were successfully archived, encrypted, transferred, decrypted, and extracted. Matching SHA-256 checksums on both servers confirmed the integrity of the transferred files. After completing the practical, I terminated both EC2 instances to avoid leaving the lab servers running.
+
+---
