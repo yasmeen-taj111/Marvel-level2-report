@@ -689,3 +689,117 @@ The SHA-256 values for lab_key and lab_key.pub matched on both servers.
 The test files were successfully archived, encrypted, transferred, decrypted, and extracted. Matching SHA-256 checksums on both servers confirmed the integrity of the transferred files. After completing the practical, I terminated both EC2 instances to avoid leaving the lab servers running.
 
 ---
+
+# TASK 9: TERRAFORM
+
+Building, Modifying and Destroying AWS Infrastructure
+
+## 1. Objective
+
+The objective of this task was to learn how to use Terraform to create, modify and delete cloud resources on AWS. I used Terraform commands to manage an EC2 instance and understand how Infrastructure as Code works.
+
+## 2. Tools Used
+
+* Terraform
+
+* AWS
+
+* AWS CLI
+
+* Visual Studio Code
+
+* macOS Terminal
+
+## 3. Introduction
+
+Terraform is an Infrastructure as Code (IaC) tool that helps create and manage cloud resources using code instead of manually setting them up. In this task, I used Terraform to create an AWS EC2 instance, make changes to it and finally delete it.
+
+## 4. Steps Performed
+
+### Step 1: Initialize Terraform
+
+First, I created a project folder named `terraform-aws-task` and added the Terraform configuration files. I used the `terraform init` command to initialize the project and download the AWS provider.
+
+Figure 1: Successful Terraform initialization
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf1.jpeg?raw=true)
+
+### Step 2: Validate and Plan the Configuration
+
+I used the `terraform validate` command to check whether my configuration was correct. It returned a success message.
+
+Next, I ran `terraform plan` to see what changes Terraform would make. It showed that one EC2 instance would be created.
+
+Figure 2: Terraform validation and plan
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf2.jpeg?raw=true)
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf3.jpeg?raw=true)
+
+
+
+### Step 3: Create an EC2 Instance
+
+I created an EC2 instance on AWS using Terraform. I configured it with Ubuntu 24.04 and the `t2.micro` instance type in the US West (Oregon) region.
+
+I used the `terraform apply` command and confirmed the operation. The instance was successfully created and was visible in the AWS Console.
+
+Figure 3: Terraform plan showing the EC2 instance to be created
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf4.jpeg?raw=true)
+
+Figure 4: EC2 instance running in AWS
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf5.jpeg?raw=true)
+
+### Step 4: Modify the EC2 Instance
+
+After creating the instance, I changed its name from `terraform-task-server` to `terraform-task-server-updated` in the configuration file.
+
+I then used `terraform plan` to preview the change and `terraform apply` to update the instance. Terraform successfully modified the instance without creating a new one.
+
+Figure 5: Successful modification of the EC2 instance
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf6.jpeg?raw=true)
+
+
+
+### Step 5: View Instance Details
+
+I used the `terraform output` command to display the details of the EC2 instance, including its instance ID and instance type.
+
+Figure 6: Terraform output
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf7.jpeg?raw=true)
+
+
+### Step 6: Destroy the EC2 Instance
+
+After completing the creation and modification steps, I used the `terraform destroy` command to delete the EC2 instance.
+
+I confirmed the operation by entering `yes`. Terraform successfully destroyed the instance.
+
+Figure 7: Successful destruction of the EC2 instance
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf8.jpeg?raw=true)
+
+### Step 7: Verify the Cleanup
+
+Finally, I checked the AWS Console to confirm that the EC2 instance had been terminated. I also used the `terraform show` and `terraform state list` commands to verify the final Terraform state and check that no managed resources remained.
+
+Figure 8: EC2 instance terminated in AWS Console
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf10.jpeg?raw=true)
+
+
+Figure 9: Terraform state verification
+
+![tf](https://github.com/yasmeen-taj111/images/blob/main/tf9.jpeg?raw=true)
+
+## 5. Result
+
+Successfully created an AWS EC2 instance using Terraform, modified its name, viewed its details and destroyed it. I also verified that the instance was terminated and that no managed resources remained in the Terraform state.
+
+## 6. Conclusion
+
+Through this task, I learned how to use Terraform to manage AWS resources. I gained practical experience in creating, modifying and deleting an EC2 instance using simple commands. I also understood how Terraform helps manage cloud infrastructure through code and keeps track of resources using its state file.
+
+---
