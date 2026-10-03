@@ -803,3 +803,327 @@ Successfully created an AWS EC2 instance using Terraform, modified its name, vie
 Through this task, I learned how to use Terraform to manage AWS resources. I gained practical experience in creating, modifying and deleting an EC2 instance using simple commands. I also understood how Terraform helps manage cloud infrastructure through code and keeps track of resources using its state file.
 
 ---
+
+# TASK 10:AWS LAMBDA
+
+## 1. Objective
+
+To develop a simple serverless chat application using **AWS Lambda, Amazon API Gateway, Python, HTML, CSS and JavaScript**.
+
+The application accepts a message from the user through a web interface. The message is sent to an AWS Lambda function through an API Gateway endpoint. Lambda processes the message and returns a predefined response, which is displayed back on the web page.
+
+---
+
+## 2. Technologies Used
+
+| Technology         | Purpose                                          |
+| ------------------ | ------------------------------------------------ |
+| AWS Lambda         | Serverless backend for processing messages       |
+| Amazon API Gateway | Provides an HTTP API for the frontend            |
+| Python             | Programming language used for Lambda             |
+| HTML               | Structure of the chat interface                  |
+| CSS                | Styling the chat interface                       |
+| JavaScript         | Sends messages to the API and displays responses |
+| cURL               | Testing the API endpoint                         |
+
+---
+
+# 3. Creating the HelloWorldLambda Function
+
+An AWS Lambda function named **HelloWorldLambda** was created using the Python runtime.
+
+The function contains a Lambda handler that prints a message and returns an HTTP success response.
+
+### Code
+
+```python
+def lambda_handler(event, context):
+    print("Hello from AWS Lambda!")
+
+    return {
+        "statusCode": 200,
+        "body": "Hello World! My first Lambda function is working."
+    }
+```
+
+The function was deployed successfully from the AWS Lambda console.
+
+**Figure 1: HelloWorldLambda function code**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda1.jpeg?raw=true)
+
+---
+
+# 4. Testing the Lambda Function
+
+A test event named **HelloWorldTest** was created to verify whether the Lambda function executes correctly.
+
+The function returned:
+
+```text
+StatusCode: 200
+Hello World! My first Lambda function is working.
+```
+
+The execution log also showed that the Lambda function was successfully invoked.
+
+**Figure 2: Successful execution of HelloWorldLambda**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda2.jpeg?raw=true)
+
+---
+
+# 5. Creating the Chat Application
+
+A web-based chat interface was developed using **HTML, CSS and JavaScript**.
+
+The interface contains:
+
+* A chat header
+* Message display area
+* Text input field
+* Send button
+* Separate user and bot message styles
+
+The frontend was designed to provide a simple interface for communicating with the Lambda backend.
+
+---
+
+# 6. Creating the ChatAppLambda Function
+
+A second Lambda function named **ChatAppLambda** was created to process messages received from the chat application.
+
+The function performs the following operations:
+
+1. Receives the incoming request.
+2. Extracts the message from the request body.
+3. Converts the message to lowercase.
+4. Checks for predefined keywords.
+5. Generates an appropriate response.
+6. Returns the response in JSON format.
+
+For example:
+
+| Input          | Response                               |
+| -------------- | -------------------------------------- |
+| `hello` / `hi` | Hello! How can I help you today?       |
+| `name`         | I'm an AWS Lambda chat assistant.      |
+| `help`         | Sure! Tell me what you need help with. |
+| `how are you`  | I'm doing great! Thanks for asking.    |
+| `bye`          | Goodbye! Have a great day!             |
+| Other input    | Default chatbot response               |
+
+**Figure 3: ChatAppLambda source code**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda3.jpeg?raw=true)
+
+---
+
+# 7. Testing ChatAppLambda
+
+A test event named **ChatTest** was created with the following input:
+
+```json
+{
+    "message": "Hello"
+}
+```
+
+The function successfully processed the input and returned:
+
+```json
+{
+    "message": "Hello",
+    "reply": "Hello! How can I help you today?"
+}
+```
+
+The execution status was **Succeeded**, confirming that the chatbot Lambda function was working correctly.
+
+**Figure 4: Successful ChatAppLambda test**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda4.jpeg?raw=true)
+
+---
+
+# 8. Creating API Gateway
+
+To connect the web application with Lambda, an **HTTP API** named `ChatAppAPI` was created using Amazon API Gateway.
+
+A POST route was configured:
+
+```text
+POST /chat
+```
+
+This route was connected to the `ChatAppLambda` function.
+
+The communication flow is:
+
+```text
+User
+ ↓
+Chat Web Page
+ ↓
+JavaScript fetch()
+ ↓
+API Gateway
+ ↓
+POST /chat
+ ↓
+ChatAppLambda
+ ↓
+Response
+ ↓
+API Gateway
+ ↓
+Chat Web Page
+```
+
+The API endpoint used by the application is:
+
+```text
+https://75xh04rqjk.execute-api.ap-south-1.amazonaws.com/chat
+```
+
+---
+
+# 9. Configuring CORS
+
+CORS was configured in API Gateway to allow the browser-based frontend to communicate with the API.
+
+The configuration used:
+
+```text
+Allowed Origin: *
+Allowed Method: POST
+Allowed Header: Content-Type
+```
+
+This allows the frontend application to send HTTP requests to the API Gateway endpoint.
+
+---
+
+# 10. Testing the API Using cURL
+
+Before connecting the API with the frontend, the endpoint was tested using the terminal.
+
+### Command
+
+```bash
+curl -X POST "https://75xh04rqjk.execute-api.ap-south-1.amazonaws.com/chat" \
+-H "Content-Type: application/json" \
+-d '{"message":"Hello"}'
+```
+
+The API returned:
+
+```json
+{
+    "message": "Hello",
+    "reply": "Hello! How can I help you today?"
+}
+```
+
+This confirmed that **API Gateway was successfully connected to Lambda**.
+
+**Figure 5: Testing API Gateway using cURL**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda5.jpeg?raw=true)
+
+---
+
+# 11. Connecting the Frontend to API Gateway
+
+The JavaScript code was updated to send the user's message to the API Gateway endpoint using the `fetch()` method.
+
+The request uses the HTTP `POST` method and sends the message in JSON format.
+
+```javascript
+const API_URL =
+    "https://75xh04rqjk.execute-api.ap-south-1.amazonaws.com/chat";
+```
+
+The message is sent using:
+
+```javascript
+fetch(API_URL, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        message: message
+    })
+});
+```
+
+The response returned by Lambda is then displayed as a bot message on the webpage.
+
+---
+
+# 12. Final Testing
+
+The complete application was tested through the browser.
+
+Different messages were entered to verify the predefined responses.
+
+For example:
+
+```text
+User: hi
+Bot: Hello! How can I help you today?
+
+User: who r u
+Bot: Thanks for your message! I'm a simple chatbot.
+
+User: help me
+Bot: Sure! Tell me what you need help with.
+```
+
+Messages that do not match the predefined keywords receive the default chatbot response.
+
+**Figure 6: Final working AWS Lambda Chat Application**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda6.jpeg?raw=true)
+
+---
+
+# 13. Lambda Functions Created
+
+The AWS Lambda console contains the two functions created for this task:
+
+1. `HelloWorldLambda`
+2. `ChatAppLambda`
+
+**Figure 7: Lambda functions created**
+
+![lambda](https://github.com/yasmeen-taj111/images/blob/main/lambda7.jpeg?raw=true)
+
+---
+
+# 14. Result
+
+The serverless chat application was successfully implemented.
+
+The application was able to:
+
+* Create and execute AWS Lambda functions.
+* Process user messages using Python.
+* Provide a web-based chat interface.
+* Connect the frontend with Lambda through API Gateway.
+* Send messages using HTTP POST requests.
+* Return responses in JSON format.
+* Display Lambda responses in the browser.
+* Handle predefined keywords and unknown messages.
+
+---
+
+# 15. Conclusion
+
+This task demonstrated the implementation of a **serverless web application using AWS Lambda**.
+
+AWS Lambda was used as the backend without requiring a continuously running server. Amazon API Gateway provided the communication layer between the frontend and Lambda. The final application successfully accepted user messages, processed them using Lambda, and displayed the corresponding responses in the browser.
+
+---
+
